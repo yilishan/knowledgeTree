@@ -14,10 +14,11 @@ class MultiwayTree {
     }
     //深度优先遍历
     traverseDF(callback) {
-        let stack = [], found = false;
+        let stack = [],
+            found = false;
         stack.unshift(this._root);
         let currentNode = stack.shift();
-        while(!found && currentNode) {
+        while (!found && currentNode) {
             found = callback(currentNode) === true ? true : false;
             if (!found) {
                 stack.unshift(...currentNode.children);
@@ -28,10 +29,11 @@ class MultiwayTree {
     }
     //广度优先遍历
     traverseBF(callback) {
-        let queue = [], found = false;
+        let queue = [],
+            found = false;
         queue.push(this._root);
         let currentNode = queue.shift();
-        while(!found && currentNode) {
+        while (!found && currentNode) {
             found = callback(currentNode) === true ? true : false;
             if (!found) {
                 queue.push(...currentNode.children)
@@ -49,14 +51,14 @@ class MultiwayTree {
             return this;
         }
         let parent = null,
-            callback = function(node) {
+            callback = function (node) {
                 if (node.data === toData) {
                     parent = node;
                     return true;
                 }
             };
 
-        this.contains(callback, traversal);  
+        this.contains(callback, traversal);
         if (parent) {
             parent.children.push(node);
             node.parent = parent;
@@ -68,14 +70,14 @@ class MultiwayTree {
     remove(data, fromData, traversal) {
         let parent = null,
             childToRemove = null,
-            callback = function(node) {
+            callback = function (node) {
                 if (node.data === fromData) {
                     parent = node;
                     return true;
                 }
             };
 
-        this.contains(callback, traversal);    
+        this.contains(callback, traversal);
         if (parent) {
             let index = this._findIndex(parent.children, data);
             if (index < 0) {
